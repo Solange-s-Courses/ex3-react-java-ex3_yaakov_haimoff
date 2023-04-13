@@ -1,12 +1,14 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
+import BullAndCowForm from './components/BullAndCowForm';
 
 function App() {
-  return (
-    <div className="App">
-        <h1>React App</h1>
-    </div>
-  );
+
+    return (
+        <div className="App">
+            <BullAndCowForm/>
+        </div>
+    );
 }
 
 export default App;
