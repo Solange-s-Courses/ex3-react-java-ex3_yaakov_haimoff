@@ -1,11 +1,11 @@
 import BullsAndCowsRules from "./BullsAndCowsRules";
 import BullAndCowRestart from "./BullAndCowRestart";
-import BullsAndCowsWin from "./BullsAndCowsWin";
-import BullsAndCowsLost from "./BullsAndCowsLost";
-import BullsAndCowsResult from "./BullsAndCowsResult";
-import BullAndCowNumberSelection from "./BullAndCowNumberSelection";
-import BullAndCowGuessTable from "./BullAndCowGuessTable";
-import useBullsAndCows from "./useBullsAndCows";
+import BullsAndCowsWin from "../messages/BullsAndCowsWin";
+import BullsAndCowsLost from "../messages/BullsAndCowsLost";
+import BullsAndCowsResult from "../messages/BullsAndCowsResult";
+import BullAndCowNumberSelection from "../game/BullAndCowNumberSelection";
+import BullAndCowGuessTable from "../game/BullAndCowGuessTable";
+import useBullsAndCows from "../game/useBullsAndCows";
 
 import React, {useState, useEffect} from "react";
 
