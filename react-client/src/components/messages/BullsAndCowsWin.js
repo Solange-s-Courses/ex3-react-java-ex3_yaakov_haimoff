@@ -1,52 +1,88 @@
-import React, { useState } from "react";
+import HighScores from "./HighScores";
 
-function BullsAndCowsWin({ onRestart }) {
+import React, {useState, useEffect} from "react";
+
+function BullsAndCowsWin({numOfGuesses}) {
     const [name, setName] = useState("");
+    const [highScores, setHighScores] = useState([]);
+    const [submitted, setSubmitted] = useState(false);
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        console.log("Submitting name:", name);
-        // Send the name to the server or store it in state, etc.
-        // Then call the onRestart function to restart the game.
-        onRestart();
-    };
+    useEffect(() => {
+        fetch("/api/highScores")
+            .then(handleResponse)
+            .then(handleJson)
+            .catch(handleError);
+    }, []);
+
+    function handleResponse(response) {
+        if (!response.ok) {
+            throw new Error(`Some error occured : ${response.status} ${response.statusText}`);
+        }
+        return response.json();
+    }
+
+    function handleJson(jsonObj) {
+        setHighScores(jsonObj.scores);
+    }
 
     const handleChange = (event) => {
         setName(event.target.value);
     };
 
+    function handleError(error) {
+        console.log(error.toString());
+    }
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        const url = "/api/highScores";
+        const newScore = {name: name, score: numOfGuesses - 1};
+        fetch(url, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(newScore),
+        })
+            .then(handleResponse)
+            .then(() => {
+                // Update the list of high scores with the newly submitted score
+                setHighScores([...highScores, newScore]);
+                setSubmitted(true);
+            })
+            .catch(handleError);
+    };
     return (
         <div>
-            <div
-                style={{
-                    backgroundColor: "lightgreen",
-                    padding: "10px",
-                    borderRadius: "5px",
-                    boxShadow: "0px 0px 10px 0px rgba(0,0,0,0.25)",
-                }}
-            >
-                <h2>Congratulations, you won!</h2>
-                <p>You may enter your name below to record your score.</p>
-            </div>
-            <br />
-
-            <form onSubmit={handleSubmit}>
-                <div className="input-group">
-                    <input
-                        type="text"
-                        className="form-control"
-                        placeholder="enter your name here"
-                        aria-label="Recipient's username"
-                        aria-describedby="basic-addon2"
-                        value={name}
-                        onChange={handleChange}
-                    />
+            {!submitted && (
+                <div className="bulls-and-cows-win-header">
+                    <h2>Congratulations, you won!</h2>
+                    <p>You may enter your name below to record your score.</p>
                 </div>
-                <br />
-                <button type="submit" className="btn btn-primary">
-                    Submit
-                </button>
-            </form>
+            )}
+            {!submitted && (
+                <form onSubmit={handleSubmit} className="bulls-and-cows-win-form">
+                    <div className="input-group">
+                        <input
+                            type="text"
+                            className="form-control bulls-and-cows-win-input"
+                            placeholder="enter your name here"
+                            aria-label="Recipient's username"
+                            aria-describedby="basic-addon2"
+                            value={name}
+                            onChange={handleChange}
+                        />
+                    </div>
+                    <button type="submit" className="btn btn-primary bulls-and-cows-win-submit">
+                        Submit
+                    </button>
+                </form>
+            )}
+            {submitted && (
+                <div>
+                    <HighScores scores={highScores}/>
+                </div>
+            )}
         </div>
     );
 }

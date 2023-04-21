@@ -1,56 +1,93 @@
 package hac.javareact;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+
 import java.io.*;
+
+import java.util.stream.Collectors;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 
 /* You can delete this comment before submission - it's only here to help you get started.
-Your servlet should be available at "/java_react_war/api/highscores"
+Your servlet should be available at "/java_react_war/api/highScores"
 assuming you don't modify the application's context path (/java_react_war).
 on the client side, you can send request to the servlet using:
-fetch("/java_react_war/api/highscores")
+fetch("/java_react_war/api/highScores")
 */
 
-@WebServlet(name = "ServletApi", value = "/api/highscores")
+@WebServlet(name = "ServletApi", value = "/api/highScores")
 public class ApiServlet extends HttpServlet {
+
+    private HighScore highScores;
+    String path;
+
+    public void init() {
+        this.highScores = new HighScore();
+        path = getServletContext().getRealPath(".") + File.separator + "scores.dat";
+    }
+
     /**
-     *
-     * @param request
-     * @param response
-     * @throws IOException
+     * @param request  - the request body
+     * @param response - the response body
+     * @throws IOException - if the request body is not a JSON string
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-        // your code here
+        // Create a JSON response with the top scores
+        JsonObject jsonResponse = new JsonObject();
+        JsonArray scoreArray = new JsonArray();
 
-        // note: this is necessary to allow cross-origin requests from the React frontend
-        // response.setHeader("Access-Control-Allow-Origin", "*");
-
-        // remove this line ! it's only for you to browse the template
-        response.getWriter().println("You are not supposed to browse this page. It will be used for API calls.");
+        try {
+            for (HighScore score : highScores.getHighScores(this.path)) {
+                JsonObject scoreObject = new JsonObject();
+                scoreObject.addProperty("name", score.getName());
+                scoreObject.addProperty("score", score.getScore());
+                scoreArray.add(scoreObject);
+            }
+            jsonResponse.add("scores", scoreArray);
+            // Send the JSON response to the client
+            PrintWriter out = response.getWriter();
+            out.println(jsonResponse);
+            response.setStatus(HttpServletResponse.SC_OK);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**
-     *
-     * @param request
-     * @param response
-     * @throws IOException
+     * @param request  - the request body
+     * @param response - the response body
+     * @throws IOException - if the request body is not a JSON string
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        // your code here
+        // Allowing React client side development on a different server:
+        response.setContentType("application/json");
+        response.setHeader("Access-Control-Allow-Origin", "*");
 
-        // note: this is necessary to allow cross-origin requests from the React frontend
-        // response.setHeader("Access-Control-Allow-Origin", "*");
+        try {
+            // get the request body as a JSON string
+            String requestBody = request.getReader().lines().collect(Collectors.joining());
+            // Parse the JSON ject from the request body
+            Gson gson = new Gson();
+            HighScore newScore = gson.fromJson(requestBody, HighScore.class);
+            // Add the new score to the list
+            highScores.addToHighScores(this.path, newScore.getName(), newScore.getScore());
+            // Create a JSON response with a success message
+            JsonObject jsonResponse = new JsonObject();
+            jsonResponse.addProperty("message", "Post request processed successfully.");
+            // Send the JSON response to the client
+            PrintWriter out = response.getWriter();
+            out.println(jsonResponse);
+            response.setStatus(HttpServletResponse.SC_OK);
 
-    }
-
-    @Override
-    public void init() {
-    }
-
-    @Override
-    public void destroy() {
+        } catch (NumberFormatException e) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

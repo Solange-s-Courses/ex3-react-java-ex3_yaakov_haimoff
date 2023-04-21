@@ -41,3 +41,30 @@
 .table-bordered {
     background-color: white;
 }
+
+.bulls-and-cows-win-header {
+    background-color: lightgreen;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px 0 rgba(0,0,0,0.25);
+}
+
+.bulls-and-cows-win-form {
+    margin-top: 20px;
+}
+
+.bulls-and-cows-win-input {
+    width: 100%;
+    max-width: 400px;
+}
+
+.bulls-and-cows-win-submit {
+    margin-top: 10px;
+}
+
+.card {
+    background-color: lightgrey;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.25);
+    padding: 20px;
+}

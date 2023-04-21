@@ -15,14 +15,8 @@ function BullAndCowNumberSelection({
                 disabled={isWon || isLost}
             />
             <br />
-            <button
-                type="submit"
-                className="btn btn-primary lg"
-                onClick={handleNumberSubmit}
-                disabled={isWon || isLost}
-            >
-                GO!
-            </button>
+            <button type="submit" className="btn btn-primary lg"
+                    onClick={handleNumberSubmit} disabled={isWon || isLost}>GO!</button>
             <br />
             <br />
         </>
