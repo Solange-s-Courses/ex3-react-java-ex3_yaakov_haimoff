@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
 
-function useBullsAndCows(guess, secretNumber) {
+function useBullsAndCows(numberOfDigits, guess, secretNumber) {
     const [Bulls, setBulls] = useState(0);
     const [Cows, setCows] = useState(0);
 
     useEffect(() => {
         const bulls = [];
         const cows = [];
-        for (let i = 0; i < 4; i++) {
+        for (let i = 0; i < numberOfDigits; i++) {
             if (guess[i] === secretNumber[i]) {
                 bulls.push(guess[i]);
             } else if (secretNumber.includes(guess[i])) {

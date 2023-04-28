@@ -3,36 +3,9 @@ import React, { useState } from "react";
 function BullsAndCowsRules() {
     const [showRules, setShowRules] = useState(false);
 
-    // const handleClick = () => {
-    //     setShowRules(!showRules);
-    // };
-
-    const handleClick = (event) => {
-        event.preventDefault();
-        const url = "/api/highScores"
-        fetch(url,  {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-                'datatype': 'json'
-            },
-            body: JSON.stringify({name: "name", score: 100})
-        })
-            .then(handleResponse)
-            .catch(handleError);
+    const handleClick = () => {
+        setShowRules(!showRules);
     };
-    function handleResponse(response) {
-        if (!response.ok) {
-            throw new Error(`Some error occured : ${response.status} ${response.statusText}`);
-        }
-        return response.json();
-    }
-    function handleError(error) {
-        console.log(error.toString());
-        // exercise: replace this error message with message inside the page:
-        // create a div with bootstrap class "text-danger" to display the message
-        // how will you define this message? prop or state?
-    }
 
     return (
         <div>

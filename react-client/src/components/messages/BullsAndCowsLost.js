@@ -11,7 +11,7 @@ function BullsAndCowsLost({}) {
                 }}
             >
                 <h2>You lost, try again!</h2>
-                <p>You may hit restart to play again.</p>
+                <p>Hit restart to play again.</p>
             </div>
             <br />
         </div>
