@@ -1,6 +1,12 @@
-import { useState, useEffect } from "react";
+import {useState, useEffect} from "react";
 
-function useBullsAndCows(numberOfDigits, guess, secretNumber) {
+function useBullsAndCowsLogic(
+    guess,
+    secretNumber,
+    numberOfDigits,
+    setGuessResults,
+    guessResults,
+) {
     const [Bulls, setBulls] = useState(0);
     const [Cows, setCows] = useState(0);
 
@@ -16,9 +22,18 @@ function useBullsAndCows(numberOfDigits, guess, secretNumber) {
         }
         setBulls(bulls.length);
         setCows(cows.length);
+
+        if (guess !== "" && guess !== "0000" && guess.length === numberOfDigits) {
+            const newGuessResult = {
+                guess: guess,
+                bulls: bulls.length,
+                cows: cows.length,
+            };
+            setGuessResults([...guessResults, newGuessResult]);
+        }
     }, [guess, secretNumber]);
 
     return [Bulls, Cows];
 }
 
-export default useBullsAndCows;
+export default useBullsAndCowsLogic;

@@ -16,7 +16,7 @@ function BullsAndCowsWin({numOfGuesses}) {
 
     function handleResponse(response) {
         if (!response.ok) {
-            throw new Error(`Some error occured : ${response.status} ${response.statusText}`);
+            throw new Error(`Some error occurred : ${response.status} ${response.statusText}`);
         }
         return response.json();
     }
@@ -36,7 +36,7 @@ function BullsAndCowsWin({numOfGuesses}) {
     const handleSubmit = (event) => {
         event.preventDefault();
         const url = "/api/highScores";
-        const newScore = {name: name, score: numOfGuesses - 1};
+        const newScore = {name: name, score: numOfGuesses};
         fetch(url, {
             method: "POST",
             headers: {

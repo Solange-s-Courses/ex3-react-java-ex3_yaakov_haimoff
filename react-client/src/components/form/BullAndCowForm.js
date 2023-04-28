@@ -5,17 +5,17 @@ import BullsAndCowsLost from "../messages/BullsAndCowsLost";
 import BullsAndCowsResult from "../messages/BullsAndCowsResult";
 import BullAndCowNumberSelection from "../game/BullAndCowNumberSelection";
 import BullAndCowGuessTable from "../game/BullAndCowGuessTable";
-import useBullsAndCows from "../game/useBullsAndCows";
+import useBullsAndCowsLogic from "../game/useBullsAndCowsLogic";
 
 import React, {useState, useEffect} from "react";
 
 function BullAndCowForm() {
     const [selectedNumbers, setSelectedNumbers] = useState(Array(4).fill(null));
+    const [secretNumber, setSecretNumber] = useState("");
     const [guess, setGuess] = useState("0000");
+    const [guessResults, setGuessResults] = useState([]);
     const [isWon, setIsWon] = useState(false);
     const [isLost, setIsLost] = useState(false);
-    const [guessResults, setGuessResults] = useState([]);
-    const [secretNumber, setSecretNumber] = useState("");
 
     const numberOfDigits = 4;
     const numberOfGuesses = 10;
@@ -38,31 +38,22 @@ function BullAndCowForm() {
         setGuess(selectedNumbers.join(""));
     };
     const handleRestart = () => {
-
         generateSecretNumber();
         setSelectedNumbers(Array(numberOfDigits).fill(null));
-
         setGuess("0000");
         setIsWon(false);
         setIsLost(false);
         setGuessResults([]);
     };
 
-    const [Bulls, Cows] = useBullsAndCows(numberOfDigits, guess, secretNumber);
+    const [Bulls, Cows] = useBullsAndCowsLogic(guess, secretNumber,
+        numberOfDigits, setGuessResults, guessResults);
 
     useEffect(() => {
-        if (guess !== "" && guess !== "0000" && guess.length === numberOfDigits) {
-            const newGuessResult = {
-                guess: guess,
-                bulls: Bulls,
-                cows: Cows,
-            };
-            setGuessResults([...guessResults, newGuessResult]);
-            if (Bulls === numberOfDigits) {
-                setIsWon(true);
-            } else if (guessResults.length === numberOfGuesses) {
-                setIsLost(true);
-            }
+        if (Bulls === numberOfDigits) {
+            setIsWon(true);
+        } else if (guessResults.length === numberOfGuesses) {
+            setIsLost(true);
         }
     }, [Bulls, Cows]);
 
