@@ -4,30 +4,59 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Optional;
 
-// Define a class that implements Serializable
+/**
+ * A Serializable class that represents a high score entry.
+ */
 public class HighScore implements Serializable {
 
-    private String name;
-    private int score;
+    private String name; // The name of the player who achieved this score
+    private int score; // The score achieved by the player
 
+    /**
+     * Returns the name of the player who achieved this score.
+     *
+     * @return A String representing the player's name
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Returns the score achieved by the player.
+     *
+     * @return An integer representing the player's score
+     */
     public int getScore() {
         return score;
     }
 
+    /**
+     * Sets the score achieved by the player.
+     *
+     * @param score An integer representing the player's score
+     */
     public void setScore(int score) {
         this.score = score;
     }
 
+    /**
+     * Sets the name of the player who achieved this score.
+     *
+     * @param name A String representing the player's name
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     * Reads the existing high scores from a file and returns them as a list of HighScore objects.
+     *
+     * @param path A String representing the path of the file containing the high scores
+     * @return A list of HighScore objects representing the existing high scores
+     * @throws IOException            If an I/O error occurs while reading the file
+     * @throws ClassNotFoundException If the class of a serialized object cannot be found while reading the file
+     */
     public List<HighScore> getHighScores(String path) throws IOException, ClassNotFoundException {
         List<HighScore> highScores = new ArrayList<>();
         if (!new File(path).exists()) {
@@ -47,6 +76,16 @@ public class HighScore implements Serializable {
         return highScores;
     }
 
+    /**
+     * Adds a new high score entry to the existing high scores and writes them to a file.
+     *
+     * @param path  A String representing the path of the file containing the high scores
+     * @param name  A String representing the name of the player who achieved the new high score
+     * @param score An integer representing the new high score achieved by the player
+     * @throws IOException            If an I/O error occurs while writing the updated high scores to the file
+     * @throws ClassNotFoundException If the class of a serialized object cannot be found while reading the file
+     */
+
     public void addToHighScores(String path, String name, int score) throws IOException, ClassNotFoundException {
         // Read existing scores from the file
         List<HighScore> highScores = getHighScores(path);
@@ -65,7 +104,6 @@ public class HighScore implements Serializable {
         }
         // Add the name as a new entry if it does not exist in the list
         if (!nameExists) {
-            System.out.println("Adding new name");
             HighScore highScore = new HighScore();
             highScore.setName(name.trim());
             highScore.setScore(score);

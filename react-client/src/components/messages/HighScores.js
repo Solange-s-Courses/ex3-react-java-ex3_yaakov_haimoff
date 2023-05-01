@@ -1,3 +1,9 @@
+/**
+
+ Renders a table of high scores in the Bulls and Cows game.
+ @param {Array} scores - An array of high score objects, each containing a name and score value.
+ @returns {JSX.Element} - A React element representing the high scores table.
+ */
 import React from "react";
 
 function HighScores({ scores }) {

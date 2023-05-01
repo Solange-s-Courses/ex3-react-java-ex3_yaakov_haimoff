@@ -1,12 +1,19 @@
-import HighScores from "./HighScores";
+/**
 
-import React, {useState, useEffect} from "react";
+ Renders the component when the player wins the Bulls and Cows game and submits their name and score
+ @param {number} numOfGuesses - The number of guesses the player took to win the game
+ @returns {JSX.Element} - A React element representing the win screen and high scores table
+ */
+import HighScores from "./HighScores";
+import React, {useState} from "react";
 
 function BullsAndCowsWin({numOfGuesses}) {
     const [name, setName] = useState("");
     const [highScores, setHighScores] = useState([]);
     const [submitted, setSubmitted] = useState(false);
-
+    /**
+     * Performs a GET request to retrieve the current list of high scores
+     */
     const doGet = () => {
         fetch("/api/highScores")
             .then(handleResponse)
@@ -14,6 +21,12 @@ function BullsAndCowsWin({numOfGuesses}) {
             .catch(handleError);
     };
 
+    /**
+     * Handles the response from the API and throws an error if the response is not ok
+     * @param {object} response - The response object from the API
+     * @returns {object} - The response object parsed as JSON
+     * @throws {Error} - If the response is not ok
+     */
     function handleResponse(response) {
         if (!response.ok) {
             throw new Error(`Some error occurred : ${response.status} ${response.statusText}`);
@@ -21,18 +34,34 @@ function BullsAndCowsWin({numOfGuesses}) {
         return response.json();
     }
 
+    /**
+     * Updates the state with the list of high scores returned by the API
+     * @param {object} jsonObj - The JSON object returned by the API
+     */
     function handleJson(jsonObj) {
         setHighScores(jsonObj.scores);
     }
 
+    /**
+     * Updates the state with the value of the input field as the user types
+     * @param {object} event - The input field change event
+     */
     const handleChange = (event) => {
         setName(event.target.value);
     };
 
+    /**
+     * Handles errors that occur during the GET request
+     * @param {Error} error - The error object that was thrown
+     */
     function handleError(error) {
         console.log(error.toString());
     }
 
+    /**
+     * Handles the submission of the user's name and score to the API
+     * @param {object} event - The form submission event
+     */
     const handleSubmit = (event) => {
         event.preventDefault();
         const url = "/api/highScores";

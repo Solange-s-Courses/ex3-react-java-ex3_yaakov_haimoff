@@ -1,6 +1,13 @@
 import React from "react";
 
+/**
+ * Renders a set of four number dropdowns for the user to select their guess
+ * @param {array} selectedNumbers - An array of numbers representing the user's current guess
+ * @param {function} setSelectedNumbers - A function to update the user's current guess
+ * @returns {JSX.Element} - A React element representing the set of number dropdowns
+ */
 function NumberDropdown({selectedNumbers, setSelectedNumbers}) {
+    // Handling a number click on a dropdown by updating the selectedNumbers array
     const handleNumberClick = (number, index) => {
         setSelectedNumbers((prevSelectedNumbers) => {
             const newSelectedNumbers = [...prevSelectedNumbers];
@@ -9,6 +16,7 @@ function NumberDropdown({selectedNumbers, setSelectedNumbers}) {
         });
     };
 
+    // Rendering a set of four number dropdowns
     return (
         <div className="d-flex align-items-center">
             {[...Array(4)].map((_, index) => (
@@ -32,4 +40,5 @@ function NumberDropdown({selectedNumbers, setSelectedNumbers}) {
     );
 }
 
+// Exporting the component as the default export
 export default NumberDropdown;

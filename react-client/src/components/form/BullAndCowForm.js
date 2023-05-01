@@ -1,3 +1,4 @@
+// Importing necessary components
 import BullsAndCowsRules from "./BullsAndCowsRules";
 import BullAndCowRestart from "./BullAndCowRestart";
 import BullsAndCowsWin from "../messages/BullsAndCowsWin";
@@ -9,7 +10,10 @@ import useBullsAndCowsLogic from "../game/useBullsAndCowsLogic";
 
 import React, {useState, useEffect} from "react";
 
+// Defining the main component
 function BullAndCowForm() {
+
+    // Defining the state variables using useState hook
     const [selectedNumbers, setSelectedNumbers] = useState(Array(4).fill(null));
     const [secretNumber, setSecretNumber] = useState("");
     const [guess, setGuess] = useState("0000");
@@ -17,9 +21,11 @@ function BullAndCowForm() {
     const [isWon, setIsWon] = useState(false);
     const [isLost, setIsLost] = useState(false);
 
+    // Defining the constants
     const numberOfDigits = 4;
     const numberOfGuesses = 10;
 
+    // Defining a function to generate a random secret number
     function generateSecretNumber() {
         const digits = new Set();
         while (digits.size < numberOfDigits) {
@@ -29,14 +35,18 @@ function BullAndCowForm() {
         setSecretNumber(Array.from(digits).join(""));
     }
 
+    // Using the useEffect hook to generate the secret number only once
     useEffect(() => {
         generateSecretNumber();
     }, []);
 
+    // Handling the number submission on form submission
     const handleNumberSubmit = (event) => {
         event.preventDefault();
         setGuess(selectedNumbers.join(""));
     };
+
+    // Restarting the game on clicking the restart button
     const handleRestart = () => {
         generateSecretNumber();
         setSelectedNumbers(Array(numberOfDigits).fill(null));
@@ -46,9 +56,11 @@ function BullAndCowForm() {
         setGuessResults([]);
     };
 
+    // Using a custom hook to calculate the Bulls and Cows based on the user's guess
     const [Bulls, Cows] = useBullsAndCowsLogic(guess, secretNumber,
         numberOfDigits, setGuessResults, guessResults);
 
+    // Checking if the game is won or lost after every guess
     useEffect(() => {
         if (Bulls === numberOfDigits) {
             setIsWon(true);
@@ -57,6 +69,7 @@ function BullAndCowForm() {
         }
     }, [Bulls, Cows]);
 
+    // Rendering the component
     return (
         <div className="bull-and-cow-form">
             <div className="bull-and-cow-form-content">

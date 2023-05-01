@@ -10,12 +10,6 @@ import java.util.stream.Collectors;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 
-/* You can delete this comment before submission - it's only here to help you get started.
-Your servlet should be available at "/java_react_war/api/highScores"
-assuming you don't modify the application's context path (/java_react_war).
-on the client side, you can send request to the servlet using:
-fetch("/java_react_war/api/highScores")
-*/
 
 @WebServlet(name = "ServletApi", value = "/api/highScores")
 public class ApiServlet extends HttpServlet {
@@ -29,9 +23,12 @@ public class ApiServlet extends HttpServlet {
     }
 
     /**
-     * @param request  - the request body
-     * @param response - the response body
-     * @throws IOException - if the request body is not a JSON string
+     * Handles GET requests to retrieve high scores.
+     *
+     * @param request the request object
+     * @param response the response object
+     * @throws ServletException if there is an error while processing the request
+     * @throws IOException if there is an error with the input/output
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -58,9 +55,12 @@ public class ApiServlet extends HttpServlet {
     }
 
     /**
-     * @param request  - the request body
-     * @param response - the response body
-     * @throws IOException - if the request body is not a JSON string
+     * Handles POST requests to add a new high score.
+     *
+     * @param request the request object
+     * @param response the response object
+     * @throws ServletException if there is an error while processing the request
+     * @throws IOException if there is an error with the input/output
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {

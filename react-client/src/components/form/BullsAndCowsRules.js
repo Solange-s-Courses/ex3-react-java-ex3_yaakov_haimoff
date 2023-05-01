@@ -1,15 +1,23 @@
 import React, { useState } from "react";
 
+/**
+ * Renders a "Bulls and Cows Rules" button and a set of rules for playing the game
+ * @returns {JSX.Element} - A React element representing the component
+ */
 function BullsAndCowsRules() {
+    // Defining a state variable to control whether the rules are shown or hidden
     const [showRules, setShowRules] = useState(false);
 
+    // Handling the button click to toggle the display of the rules
     const handleClick = () => {
         setShowRules(!showRules);
     };
 
+    // Rendering the component
     return (
         <div>
             <button type="button" className="btn btn-info" onClick={handleClick}>Bulls and Cows Rules</button>
+            {/* Displaying the rules if the showRules state variable is true */}
             {showRules && (
                 <p style={{
                     background: 'white',
@@ -18,7 +26,7 @@ function BullsAndCowsRules() {
                     color: 'darkslategrey',
                     fontWeight: 'bold'
                 }}>
-                The computer generates a secret 4-digit number.
+                    The computer generates a secret 4-digit number.
                     <br />
                     The player tries to guess that number.
                     <br />
@@ -44,4 +52,5 @@ function BullsAndCowsRules() {
     );
 }
 
+// Exporting the component as the default export
 export default BullsAndCowsRules;

@@ -1,4 +1,8 @@
-function BullsAndCowsLost({}) {
+/**
+ Renders a message indicating that the player has lost the game
+ @returns {JSX.Element} - A React element representing the message indicating that the player has lost the game
+ */
+function BullsAndCowsLost() {
 
     return (
         <div>
@@ -18,4 +22,5 @@ function BullsAndCowsLost({}) {
     );
 }
 
+// Exporting the component as the default export
 export default BullsAndCowsLost;

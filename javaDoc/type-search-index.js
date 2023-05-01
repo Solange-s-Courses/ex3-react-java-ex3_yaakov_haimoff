@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes","u":"allclasses-index.html"},{"p":"hac.javareact","l":"ApiServlet"},{"p":"hac.javareact","l":"HighScore"}];updateSearchResults();

@@ -1,5 +1,14 @@
 import NumberDropdown from "./NumberDropdown";
 
+/**
+ * Renders a set of number dropdowns and a "GO!" button for the user to submit their guess
+ * @param {array} selectedNumbers - An array of numbers representing the user's current guess
+ * @param {function} setSelectedNumbers - A function to update the user's current guess
+ * @param {function} handleNumberSubmit - A function to handle the submission of the user's guess
+ * @param {boolean} isWon - A boolean indicating whether the game has been won
+ * @param {boolean} isLost - A boolean indicating whether the game has been lost
+ * @returns {JSX.Element} - A React element representing the number selection section of the game
+ */
 function BullAndCowNumberSelection({
                                        selectedNumbers,
                                        setSelectedNumbers,
@@ -7,6 +16,7 @@ function BullAndCowNumberSelection({
                                        isWon,
                                        isLost,
                                    }) {
+    // Rendering a set of number dropdowns and a "GO!" button for the user to submit their guess
     return (
         <>
             <NumberDropdown
@@ -23,4 +33,5 @@ function BullAndCowNumberSelection({
     );
 }
 
+// Exporting the component as the default export
 export default BullAndCowNumberSelection;
