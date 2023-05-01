@@ -47,30 +47,6 @@ public class HighScore implements Serializable {
         return highScores;
     }
 
-
-    //    public void addToHighScores(String path, String name, int score) throws IOException, ClassNotFoundException {
-//        // Read existing scores from the file
-//        List<HighScore> highScores = getHighScores(path);
-//        // Add the new score to the list
-//        HighScore highScore = new HighScore();
-//        highScore.setScore(score);
-//        highScore.setName(name);
-//        highScores.add(highScore);
-//        // Sort the list by score
-//        highScores.sort(Comparator.comparingInt(HighScore::getScore));
-//        // Only keep the top 5 scores
-//        if (highScores.size() > 4) {
-//            highScores = highScores.subList(0, 4);
-//        }
-//        // Write the updated list to the file
-//        FileOutputStream fileOutputStream = new FileOutputStream(path);
-//        ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
-//        for (HighScore object : highScores) {
-//            objectOutputStream.writeObject(object);
-//        }
-//        objectOutputStream.flush();
-//        objectOutputStream.close();
-//    }
     public void addToHighScores(String path, String name, int score) throws IOException, ClassNotFoundException {
         // Read existing scores from the file
         List<HighScore> highScores = getHighScores(path);
@@ -78,7 +54,7 @@ public class HighScore implements Serializable {
 
         // Check if the name already exists in the list of high scores
         for (HighScore hs : highScores) {
-            if (hs.getName().equals(name)) {
+            if (hs.getName().equals(name.trim())) {
                 // Update the score for the existing name if the new score is lower
                 if (hs.getScore() > score) {
                     hs.setScore(score);
@@ -89,9 +65,10 @@ public class HighScore implements Serializable {
         }
         // Add the name as a new entry if it does not exist in the list
         if (!nameExists) {
+            System.out.println("Adding new name");
             HighScore highScore = new HighScore();
+            highScore.setName(name.trim());
             highScore.setScore(score);
-            highScore.setName(name);
             highScores.add(highScore);
         }
         // Sort the list by score

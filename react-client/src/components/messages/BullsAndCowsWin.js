@@ -7,12 +7,12 @@ function BullsAndCowsWin({numOfGuesses}) {
     const [highScores, setHighScores] = useState([]);
     const [submitted, setSubmitted] = useState(false);
 
-    useEffect(() => {
+    const doGet = () => {
         fetch("/api/highScores")
             .then(handleResponse)
             .then(handleJson)
             .catch(handleError);
-    }, []);
+    };
 
     function handleResponse(response) {
         if (!response.ok) {
@@ -47,6 +47,7 @@ function BullsAndCowsWin({numOfGuesses}) {
             .then(handleResponse)
             .then(() => {
                 // Update the list of high scores with the newly submitted score
+                doGet()
                 setHighScores([...highScores, newScore]);
                 setSubmitted(true);
             })
