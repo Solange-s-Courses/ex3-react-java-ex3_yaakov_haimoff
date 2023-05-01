@@ -1,16 +1,37 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-24ddc0f5d75046c5622901739e7c5dd533143b0c8e959d652212380cedb1ea36.svg)](https://classroom.github.com/a/YDg-_nm7)
-## Authors
-* Name:  Email:
-* Name:  Email:
+## ex3 - BULLS AND COWS
+ex3-yaakovhaimoff created by GitHub
+
+## Contact info
+<ul>
+<li>Name: Yaakov Haimoff</li>
+<li>ID: 318528510 </li>
+<li>Edu mail: yaakovha@edu.hac.ac.il</li>
+</ul>
+# task-2-yaakovhaimoff
+
+## Usage
+
+In order to use the webb app you need to clone the project using this https url
+
+```
+https://github.com/Solange-s-Courses/ex3-react-java-ex3_yaakov_haimoff.git
+```
 
 ## Explanations
+This is a simple implementation of the Bulls and Cows game, also known as Mastermind. 
+The game generates a random 4-digit number and the player has to guess the number. 
+The game provides feedback to the player in the form of bulls and cows. 
+A bull is a correct digit in the correct position, and a cow is a correct digit in the wrong position.
 
-(Explain here your project)
-
-## How to use this template
-This is the template for a project where front-end and back-end are separated.
-The front-end is a React application, the back-end is a Java Web application
-including a Servlet for REST API endpoints.
+ ## How to Play
+Clone or download the repository to your local machine
+Open the terminal and navigate to the project directory
+Run npm install to install the required dependencies
+Run npm start to start the application
+Open a web browser and go to http://localhost:3000 to access the game
+Enter a 4-digit number in the input field and click the "Guess" button to make a guess
+The game will provide feedback in the form of bulls and cows
+Keep guessing until you guess the correct number
 
 ### Create a run configuration for the Server
 * In IntelliJ, go to Run->Edit Configurations
@@ -48,4 +69,5 @@ Then browse:
 * your react client at http://localhost:3000
 * your server will be available at http://localhost:8080/api/highscores (you have of course to implement the REST API).
   Note that you should never specify the host and port in your React code! (use 'api/' instead of 'http://localhost:8080/api/')
+
 
